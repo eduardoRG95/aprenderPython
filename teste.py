@@ -40,9 +40,17 @@ def editar_livros_por_id(id):
 
 @app.route('/livros', methods=['POST'])
 def incluir_novo_livro():
-    new_book =  request.get_json()
+    new_book = request.get_json()
     books.append(new_book)
     return jsonify(books)
+
+@app.route('/livros/<int:id>', methods=['DELETE'])
+def remover_livro(id):
+    for indice, book in enumerate(books):
+        if book.get('id') == id:
+            del books[indice]
+    
+    return jsonify(books[indice])
 
 
 
